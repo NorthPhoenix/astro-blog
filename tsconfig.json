@@ -5,13 +5,14 @@
     "baseUrl": ".",
     "paths": {
       "@components/*": ["src/components/*"],
-      "@layouts/*": ["src/layouts/*"]
+      "@layouts/*": ["src/layouts/*"],
+      "~/*": ["src/*"]
     },
     "strictNullChecks": true,
     "jsx": "react-jsx",
     "jsxImportSource": "react",
-    "allowJs": true,
-    "checkJs": true
+    "allowJs": true
+    // "checkJs": true
   },
   "exclude": ["node_modules"]
 }
