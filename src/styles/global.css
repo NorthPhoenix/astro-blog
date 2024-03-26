@@ -1,154 +1,88 @@
-/*
-  The CSS in this style tag is based off of Bear Blog's default CSS.
-  https://github.com/HermanMartinus/bearblog/blob/297026a877bc2ab2b3bdfbd6b9f7961c350917dd/templates/styles/blog/default.css
-  License MIT: https://github.com/HermanMartinus/bearblog/blob/master/LICENSE.md
- */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-:root {
-	--accent: #2337ff;
-	--accent-dark: #000d8a;
-	--black: 15, 18, 25;
-	--gray: 96, 115, 159;
-	--gray-light: 229, 233, 240;
-	--gray-dark: 34, 41, 57;
-	--gray-gradient: rgba(var(--gray-light), 50%), #fff;
-	--box-shadow: 0 2px 6px rgba(var(--gray), 25%), 0 8px 24px rgba(var(--gray), 33%),
-		0 16px 32px rgba(var(--gray), 33%);
-}
-@font-face {
-	font-family: 'Atkinson';
-	src: url('/fonts/atkinson-regular.woff') format('woff');
-	font-weight: 400;
-	font-style: normal;
-	font-display: swap;
-}
-@font-face {
-	font-family: 'Atkinson';
-	src: url('/fonts/atkinson-bold.woff') format('woff');
-	font-weight: 700;
-	font-style: normal;
-	font-display: swap;
-}
-body {
-	font-family: 'Atkinson', sans-serif;
-	margin: 0;
-	padding: 0;
-	text-align: left;
-	background: linear-gradient(var(--gray-gradient)) no-repeat;
-	background-size: 100% 600px;
-	word-wrap: break-word;
-	overflow-wrap: break-word;
-	color: rgb(var(--gray-dark));
-	font-size: 20px;
-	line-height: 1.7;
-}
-main {
-	width: 720px;
-	max-width: calc(100% - 2em);
-	margin: auto;
-	padding: 3em 1em;
-}
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-	margin: 0 0 0.5rem 0;
-	color: rgb(var(--black));
-	line-height: 1.2;
-}
-h1 {
-	font-size: 3.052em;
-}
-h2 {
-	font-size: 2.441em;
-}
-h3 {
-	font-size: 1.953em;
-}
-h4 {
-	font-size: 1.563em;
-}
-h5 {
-	font-size: 1.25em;
-}
-strong,
-b {
-	font-weight: 700;
-}
-a {
-	color: var(--accent);
-}
-a:hover {
-	color: var(--accent);
-}
-p {
-	margin-bottom: 1em;
-}
-.prose p {
-	margin-bottom: 2em;
-}
-textarea {
-	width: 100%;
-	font-size: 16px;
-}
-input {
-	font-size: 16px;
-}
-table {
-	width: 100%;
-}
-img {
-	max-width: 100%;
-	height: auto;
-	border-radius: 8px;
-}
-code {
-	padding: 2px 5px;
-	background-color: rgb(var(--gray-light));
-	border-radius: 2px;
-}
-pre {
-	padding: 1.5em;
-	border-radius: 8px;
-}
-pre > code {
-	all: unset;
-}
-blockquote {
-	border-left: 4px solid var(--accent);
-	padding: 0 0 0 20px;
-	margin: 0px;
-	font-size: 1.333em;
-}
-hr {
-	border: none;
-	border-top: 1px solid rgb(var(--gray-light));
-}
-@media (max-width: 720px) {
-	body {
-		font-size: 18px;
-	}
-	main {
-		padding: 1em;
-	}
+@layer base {
+  html {
+    @apply scroll-smooth antialiased;
+  }
+  body {
+    @apply styled-scrollbar bg-nier-300 text-nier-700 selection:bg-orange-700 selection:text-nier-200;
+  }
 }
 
-.sr-only {
-	border: 0;
-	padding: 0;
-	margin: 0;
-	position: absolute !important;
-	height: 1px;
-	width: 1px;
-	overflow: hidden;
-	/* IE6, IE7 - a 0 height clip, off to the bottom right of the visible 1px box */
-	clip: rect(1px 1px 1px 1px);
-	/* maybe deprecated but we need to support legacy browsers */
-	clip: rect(1px, 1px, 1px, 1px);
-	/* modern browsers, clip-path works inwards from each corner */
-	clip-path: inset(50%);
-	/* added line to stop words getting smushed together (as they go onto seperate lines and some screen readers do not understand line feeds as a space */
-	white-space: nowrap;
+@layer utilities {
+  .loading {
+    pointer-events: none;
+    display: inline-block;
+    aspect-ratio: 1 / 1;
+    width: 1.5rem;
+    background-color: currentColor;
+    mask-size: 100%;
+    mask-repeat: no-repeat;
+    mask-position: center;
+    mask-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cstyle%3E.spinner_qM83%7Banimation:spinner_8HQG 1.05s infinite%7D.spinner_oXPr%7Banimation-delay:.1s%7D.spinner_ZTLf%7Banimation-delay:.2s%7D@keyframes spinner_8HQG%7B0%25,57.14%25%7Banimation-timing-function:cubic-bezier(0.33,.66,.66,1);transform:translate(0)%7D28.57%25%7Banimation-timing-function:cubic-bezier(0.33,0,.66,.33);transform:translateY(-6px)%7D100%25%7Btransform:translate(0)%7D%7D%3C/style%3E%3Ccircle class='spinner_qM83' cx='4' cy='12' r='3'/%3E%3Ccircle class='spinner_qM83 spinner_oXPr' cx='12' cy='12' r='3'/%3E%3Ccircle class='spinner_qM83 spinner_ZTLf' cx='20' cy='12' r='3'/%3E%3C/svg%3E");
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .styled-scrollbar::-webkit-scrollbar {
+    width: 0.5rem;
+  }
+  .styled-scrollbar::-webkit-scrollbar-track {
+    background: #d1cdb7;
+  }
+  .styled-scrollbar::-webkit-scrollbar-thumb {
+    background-color: #454138;
+    border-radius: 2px;
+    border: 0rem solid #d1cdb7;
+  }
+  .text-shadow {
+    text-shadow: 0.3rem 0.3rem 0 theme(textColor.nier.400);
+  }
+  .nier-block-left {
+    @apply before:absolute before:-left-6 before:top-0 before:box-content before:h-full before:w-[0.3rem] before:border before:border-y-0 before:border-l-[0.6rem] before:border-r-[0.2rem] before:border-solid before:border-nier-400 before:content-[""];
+  }
+  .nier-block-left-sm {
+    @apply before:absolute before:-left-4 before:top-0 before:box-content before:h-full before:w-[0.15rem] before:border before:border-y-0 before:border-l-[0.3rem] before:border-r-[0.1rem] before:border-solid before:border-nier-400 before:content-[""];
+  }
+  .nier-block-right {
+    @apply after:absolute after:-right-6 after:top-0 after:box-content after:h-full after:w-[0.3rem] after:border after:border-y-0 after:border-l-[0.2rem] after:border-r-[0.6rem] after:border-solid after:border-nier-400 after:content-[""];
+  }
+  .nier-block-right-sm {
+    @apply after:absolute after:-right-4 after:top-0 after:box-content after:h-full after:w-[0.15rem] after:border after:border-y-0 after:border-l-[0.1rem] after:border-r-[0.3rem] after:border-solid after:border-nier-400 after:content-[""];
+  }
+  .animate-delay-stagger > * {
+    animation-delay: calc(
+      var(--animation-order, 0) * var(--stagger-delta, 100ms)
+    );
+  }
+  .stagger-delta-50 {
+    --stagger-delta: 50ms;
+  }
+  .stagger-delta-100 {
+    --stagger-delta: 100ms;
+  }
+  .stagger-delta-150 {
+    --stagger-delta: 150ms;
+  }
+  .stagger-delta-200 {
+    --stagger-delta: 200ms;
+  }
+  .stagger-delta-300 {
+    --stagger-delta: 300ms;
+  }
+  .stagger-delta-500 {
+    --stagger-delta: 500ms;
+  }
+  .stagger-delta-700 {
+    --stagger-delta: 700ms;
+  }
+  .stagger-delta-1000 {
+    --stagger-delta: 1000ms;
+  }
 }

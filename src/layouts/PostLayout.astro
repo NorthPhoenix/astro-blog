@@ -1,0 +1,67 @@
+---
+import FormattedDate from "@components/FormattedDate.astro"
+import { ArrowLeftIcon } from "lucide-react"
+
+interface Props {
+  title: string
+  author: string
+  heroImage?: string | undefined
+  pubDate: Date
+}
+
+const { title, author, heroImage, pubDate } = Astro.props
+---
+
+<!-- <BlogViewTracker client:load slug={slug} /> -->
+<div class='mx-auto mt-2 max-w-6xl pl-2 md:mb-2 md:mt-4'>
+  <a href='/' class='group flex w-fit flex-row items-center gap-2 p-2'>
+    <ArrowLeftIcon
+      className='h-6 w-6 transition-all group-hover:brightness-125'
+    />
+    <div class='relative text-lg tracking-wide group-hover:brightness-125'>
+      Return to all posts
+      <div class='absolute bottom-0 left-0 right-0 h-px overflow-clip'>
+        <div
+          class='h-full w-full -translate-x-full bg-gradient-to-r from-nier-400 via-nier-400 via-20% to-transparent transition-transform duration-300 ease-out group-hover:translate-x-0 group-hover:duration-500'>
+        </div>
+      </div>
+    </div>
+  </a>
+</div>
+<!-- <slot /> -->
+<div class='mx-auto max-w-6xl px-5'>
+  <article class='pb-10'>
+    <h1
+      class='w-full pb-3 text-center text-2xl font-bold sm:text-4xl md:pb-6 md:text-6xl'>
+      {title}
+    </h1>
+    <div class='relative mb-2 h-52 w-full sm:mx-0 md:mb-4 md:h-96'>
+      <img
+        alt={title}
+        src={heroImage}
+        class='w-full h-full object-cover object-center'
+      />
+    </div>
+    <div
+      class='mb-2 flex w-full flex-wrap items-start justify-between gap-x-2 md:mb-4'>
+      <div class='text-xs text-nier-400 md:text-base'>
+        Written on <FormattedDate date={pubDate} />
+      </div>
+      <div class='text-xs text-nier-400 md:text-base'>
+        by {author}.
+      </div>
+    </div>
+    <hr class='mb-10 mt-4 border-nier-700' />
+    <div class='mx-auto max-w-4xl'>
+      <div class='prose w-full max-w-none prose-invert lg:prose-xl'>
+        <slot />
+      </div>
+    </div>
+  </article>
+</div>
+{
+  /* <hr class="mb-4 border-nier-400" />
+      <div class="flex w-full flex-row items-center justify-center">
+        <LikeButton slug={params.slug} />
+      </div> */
+}
