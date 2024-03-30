@@ -1,10 +1,30 @@
 ---
 import { getCollection } from "astro:content"
 import BaseLayout from "../layouts/BaseLayout.astro"
+import { Image } from "astro:assets"
+import type { ImageMetadata } from "astro"
+import { FALLBACK_BLOG_HERO_IMAGE } from "~/consts"
 
+// Get all blog posts
 const posts = (await getCollection("blog")).sort(
   (a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf()
 )
+
+// Fill in missing hero images with a default image
+for (const post of posts) {
+  post.data.heroImage ??= FALLBACK_BLOG_HERO_IMAGE
+}
+
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/*.{jpeg,jpg,png,gif}"
+)
+for (const post of posts) {
+  const imagePath = post.data.heroImage ?? FALLBACK_BLOG_HERO_IMAGE
+  if (!images[imagePath])
+    throw new Error(
+      `"${imagePath}" does not exist in glob: "src/assets/*.{jpeg,jpg,png,gif}"`
+    )
+}
 ---
 
 <BaseLayout>
@@ -31,13 +51,10 @@ const posts = (await getCollection("blog")).sort(
               slug={item.slug}
               class="absolute right-0 top-0 px-3 py-2"
             /> */}
-                <img
-                  src={item.data.heroImage ?? ""}
+                <Image
+                  src={images[item.data.heroImage!]!()}
                   alt={`Cover Image for ${item.data.title}`}
                   class='h-auto w-full object-cover object-center'
-                  width={0}
-                  height={0}
-                  sizes='(min-width: 768px) 347px, 192px'
                 />
               </div>
               <div class='p-4'>

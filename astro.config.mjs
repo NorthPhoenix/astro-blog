@@ -12,6 +12,9 @@ export default defineConfig({
   integrations: [mdx(), sitemap(), react(), tailwind({ applyBaseStyles: false }),],
   output: "hybrid",
   adapter: vercel(),
+  prefetch: {
+    prefetchAll: true
+  },
   markdown: {
     shikiConfig: {
       // Choose from Shiki's built-in themes (or add your own)

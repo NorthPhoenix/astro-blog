@@ -1,6 +1,8 @@
 ---
 import FormattedDate from "@components/FormattedDate.astro"
+import { Image } from "astro:assets"
 import { ArrowLeftIcon } from "lucide-react"
+import { FALLBACK_BLOG_HERO_IMAGE } from "~/consts"
 
 interface Props {
   title: string
@@ -9,7 +11,17 @@ interface Props {
   pubDate: Date
 }
 
-const { title, author, heroImage, pubDate } = Astro.props
+const { title, author, heroImage: rawHeroImage, pubDate } = Astro.props
+
+let heroImage = rawHeroImage ?? FALLBACK_BLOG_HERO_IMAGE
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/*.{jpeg,jpg,png,gif}"
+)
+if (!images[heroImage]) {
+  throw new Error(
+    `"${heroImage}" does not exist in glob: "src/assets/*.{jpeg,jpg,png,gif}"`
+  )
+}
 ---
 
 <!-- <BlogViewTracker client:load slug={slug} /> -->
@@ -36,9 +48,9 @@ const { title, author, heroImage, pubDate } = Astro.props
       {title}
     </h1>
     <div class='relative mb-2 h-52 w-full sm:mx-0 md:mb-4 md:h-96'>
-      <img
+      <Image
+        src={images[heroImage]!()}
         alt={title}
-        src={heroImage}
         class='w-full h-full object-cover object-center'
       />
     </div>
