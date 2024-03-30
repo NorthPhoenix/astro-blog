@@ -53,8 +53,9 @@ for (const post of posts) {
             /> */}
                 <Image
                   src={images[item.data.heroImage!]!()}
-                  alt={`Cover Image for ${item.data.title}`}
+                  alt={`${item.data.title}`}
                   class='h-auto w-full object-cover object-center'
+                  loading='eager'
                 />
               </div>
               <div class='p-4'>
