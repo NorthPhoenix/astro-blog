@@ -1,6 +1,7 @@
 ---
 import { twMerge } from "tailwind-merge"
 import Logo from "./Logo.astro"
+import { RssIcon } from "lucide-react"
 
 interface Props {
   twClasses?: string
@@ -12,7 +13,7 @@ const { twClasses } = Astro.props
 <header>
   <div class:list={twMerge("flex w-full flex-col items-center", twClasses)}>
     <nav
-      class='flex h-16 w-[90%] max-w-7xl flex-row items-center justify-between bg-transparent p-3 ease-in-out animate-delay-1000 sm:h-20 sm:p-4 md:h-24 md:p-6'>
+      class='flex h-16 w-[90%] max-w-7xl flex-row animate-fade-down animate-delay-300 animate-duration-[1500] items-center justify-between bg-transparent p-3 sm:h-20 sm:p-4 md:h-24 md:p-6'>
       <a
         href='/'
         class='group flex flex-row items-center gap-4 object-scale-down md:h-14'>
@@ -29,6 +30,11 @@ const { twClasses } = Astro.props
           </h2>
         </div>
       </a>
+      <a
+        href='/rss.xml'
+        class='flex items-center hover:scale-110 transition-all hover:brightness-110'
+        aria-label='RSS'><RssIcon /></a
+      >
       <!-- <AuthIndicator /> -->
     </nav>
     <div
